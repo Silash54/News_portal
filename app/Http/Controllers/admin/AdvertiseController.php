@@ -12,7 +12,7 @@ class AdvertiseController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.advertise.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class AdvertiseController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.advertise.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class AdvertiseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.advertise.edit');
     }
 
     /**
