@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -12,7 +13,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.company.index');
     }
 
     /**
@@ -20,7 +21,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.company.create');
     }
 
     /**
@@ -44,7 +45,8 @@ class CompanyController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $company=Company::find($id);
+        return view('admin.company.edit');
     }
 
     /**
@@ -60,6 +62,8 @@ class CompanyController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $company=Company::find($id);
+        $company->delete();
+        return redirect()->route('company.index');
     }
 }

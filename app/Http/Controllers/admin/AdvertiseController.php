@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Advertise;
 use Illuminate\Http\Request;
 
 class AdvertiseController extends Controller
@@ -60,6 +61,8 @@ class AdvertiseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $advertise=Advertise::find($id);
+        $advertise->delete();
+        return redirect()->route('advertise.index');
     }
 }
