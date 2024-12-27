@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
@@ -13,7 +14,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('admin.company.index');
+        $company=Company::all();
+        //return $company;
+        return view('admin.company.index',compact('company'));
     }
 
     /**
@@ -29,8 +32,31 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+       // return $request->all();
+        $validator=Validator::make($request->all(),[
+            'name'=>'required|string',
+            'email'=>'required|email|unique:users',
+            'phone'=>'required|integer',
+            'tel'=>'required|integer',
+            'logo'=>'required'
+        ]);
+        $company=new Company();
+        $company->name=$request->name;
+        $company->email=$request->email;
+        $company->phone=$request->phone;
+        $company->tel=$request->tel;
+        $company->facebook=$request->facebook;
+        $company->youtube=$request->youtube;
+        if($request->hasFile('logo'))
+        {
+            $file=$request->logo;
+            $newName=time().'.'.$file->getClientOriginalExtension();
+            $file->move('images',$newName);
+            $company->logo="images/$newName";
+        }
+        $company->save();
+        return redirect()->route('company.index');
+        }
 
     /**
      * Display the specified resource.
@@ -46,7 +72,7 @@ class CompanyController extends Controller
     public function edit(string $id)
     {
         $company=Company::find($id);
-        return view('admin.company.edit');
+        return view('admin.company.edit',compact('company'));
     }
 
     /**
@@ -54,7 +80,29 @@ class CompanyController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator=Validator::make($request->all(),[
+            'name'=>'required|string',
+            'email'=>'required|email|unique:users',
+            'phone'=>'required|integer',
+            'tel'=>'required|integer',
+            'logo'=>'required'
+        ]);
+        $company=Company::find($id);
+        $company->name=$request->name;
+        $company->email=$request->email;
+        $company->phone=$request->phone;
+        $company->tel=$request->tel;
+        $company->facebook=$request->facebook;
+        $company->youtube=$request->youtube;
+        if($request->hasFile('logo'))
+        {
+            $file=$request->logo;
+            $newName=time().'.'.$file->getClientOriginalExtension();
+            $file->move('images',$newName);
+            $company->logo="images/$newName";
+        }
+        $company->update();
+        return redirect()->route('company.index');
     }
 
     /**
@@ -63,6 +111,7 @@ class CompanyController extends Controller
     public function destroy(string $id)
     {
         $company=Company::find($id);
+        //return $company;
         $company->delete();
         return redirect()->route('company.index');
     }
