@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nepali_title');
             $table->string('english_title');
+            $table->string('position');
             $table->string('slug');
             $table->timestamps();
         });

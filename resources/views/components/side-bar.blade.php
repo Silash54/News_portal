@@ -10,8 +10,10 @@
             <a href="{{ route('dashboard') }}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
         </li>
         <li>
-            <a href="{{ route('company.index') }}" ><i
-                    data-feather="briefcase"></i><span>Company</span></a>
+            <a href="{{ route('company.index') }}"><i data-feather="briefcase"></i><span>Company</span></a>
+        </li>
+        <li>
+            <a href="{{ route('category.index') }}"><i data-feather="briefcase"></i><span>Category</span></a>
         </li>
     </ul>
 </aside>
