@@ -56,6 +56,7 @@
     <link rel="stylesheet" href="/assets/bundles/summernote/summernote-bs4.css">
     <link rel="stylesheet" href="/assets/bundles/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="/assets/bundles/jquery-selectric/selectric.css">
+    <link rel="stylesheet" href="/nepalidate/nepali_date.min.css">
 </head>
 
 <body>
@@ -357,6 +358,13 @@
     <script src="/assets/bundles/summernote/summernote-bs4.js"></script>
     <script src="/assets/bundles/select2/dist/js/select2.full.min.js"></script>
     <script src="/assets/bundles/jquery-selectric/jquery.selectric.min.js"></script>
+    <script src="/nepalidate/nepali_date.min.js"></script>
+        <script type="text/javascript">
+            window.onload = function() {
+                var mainInput = document.getElementById("expire_date");
+                mainInput.nepaliDatePicker();
+            };
+        </script>
 </body>
 
 

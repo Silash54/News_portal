@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Advertise;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AdvertiseController extends Controller
 {
@@ -13,7 +14,8 @@ class AdvertiseController extends Controller
      */
     public function index()
     {
-        return view('admin.advertise.index');
+        $advertise=Advertise::orderBy('id','desc')->get();
+        return view('admin.advertise.index',compact('advertise'));
     }
 
     /**
@@ -29,7 +31,28 @@ class AdvertiseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return $request->all();
+        $validator=Validator::make($request->all(),[
+            'company_name'=>'required|string',
+            'contact'=>'required',
+            'banner'=>'required',
+            'redirect_url'=>'required',
+        ]);
+        $advertise=new Advertise();
+        $advertise->company_name=$request->company_name;
+        $advertise->phone=$request->contact;
+        $advertise->banner=$request->banner;
+        $advertise->redirect_url=$request->redirect_url;
+        $advertise->expire_date=$request->expire_date;
+        if($request->hasFile('banner'))
+        {
+            $file=$request->banner;
+            $newName=time().'.'.$file->getClientOriginalExtension();
+            $file->move('images',$newName);
+            $advertise->banner="images/$newName";
+        }
+        $advertise->save();
+        return redirect()->route('advertise.index');
     }
 
     /**
@@ -45,7 +68,8 @@ class AdvertiseController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.advertise.edit');
+        $advertise=Advertise::find($id);
+        return view('admin.advertise.edit',compact('advertise'));
     }
 
     /**
@@ -53,7 +77,29 @@ class AdvertiseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
+        //return $request->all();
+        $validator=Validator::make($request->all(),[
+            'company_name'=>'required|string',
+            'contact'=>'required',
+            'banner'=>'required',
+            'redirect_url'=>'required',
+        ]);
+        $advertise=Advertise::find($id);
+        $advertise->company_name=$request->company_name;
+        $advertise->phone=$request->contact;
+        $advertise->banner=$request->banner;
+        $advertise->redirect_url=$request->redirect_url;
+        $advertise->expire_date=$request->expire_date;
+        if($request->hasFile('banner'))
+        {
+            $file=$request->banner;
+            $newName=time().'.'.$file->getClientOriginalExtension();
+            $file->move('images',$newName);
+            $advertise->banner="images/$newName";
+        }
+        $advertise->update();
+        return redirect()->route('advertise.index');
     }
 
     /**

@@ -18,5 +18,8 @@
         <li>
             <a href="{{ route('post.index') }}"><i data-feather="briefcase"></i><span>Post</span></a>
         </li>
+        <li>
+            <a href="{{ route('advertise.index') }}"><i data-feather="briefcase"></i><span>Advertise</span></a>
+        </li>
     </ul>
 </aside>

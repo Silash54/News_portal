@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('advertises', function (Blueprint $table) {
             $table->id();
+            $table->string('company_name');
+            $table->string('contact');
             $table->string('banner')->nullable();
             $table->string('redirect_url')->nullable();
-            $table->string('company_name');
-            $table->string('phone');
             $table->string('expire_date')->nullable();
             $table->timestamps();
         });
