@@ -3,16 +3,17 @@
         <div class="card">
             <div class="card-header">
                 <h2>Edit Post</h2>
-                <a href="{{ route('post.create') }}" class="btn btn-primary m-auto">Back</a>
+                <a href="{{ route('post.index') }}" class="btn btn-primary m-auto">Back</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('post.update',$post->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="row">
                         <div class="col-md-6">
                             <label for="title">Title <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" value="{{ old('title') ?? $post->title }}" name="title"
-                                placeholder="Create post" required>
+                                placeholder="Create post" >
                             @error('name')
                                 <span>{{ $message }}</span>
                             @enderror
@@ -26,15 +27,15 @@
                         </div>
                         <div class="col-md-6">
                             <label for="image">Image <span class="text-danger">*</span></label>
-                            <input type="file" class="form-control" name="image" required
+                            <input type="file" class="form-control" name="image"
                                 value="{{ old('image') ?? $post->image }}">
                                 <img src="{{ asset($post->image) }}" alt="{{ $post->image }}" width="120">
                             @error('image')
                                 <span>{{ $message }}</span>
                             @enderror
                             <label for="meta_title">Meta Title</label>
-                            <input type="text" class="form-control" name="meta_title" required
-                                value="{{ old('meta_title') ?? $post->meta_title }}" placeholder="Enter Meta title">
+                            <input type="text" class="form-control" name="meta_title"
+                                value="{{ old('meta_title') ?? $post->meta_title }}" >
                             @error('image')
                                 <span>{{ $message }}</span>
                             @enderror

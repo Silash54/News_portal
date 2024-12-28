@@ -30,7 +30,7 @@
                                             @if ($data->status== 'pending')
                                                 <span class="badge badge-warning text-white">{{ $data->status }}</span>
                                             @elseif ($data->status === 'accepted')
-                                            <span class="badge badge-success text-white">{{ $data->status }}</span>
+                                            <span class="badge bg-info text-dark">{{ $data->status }}</span>
                                             @else
                                             <span class="badge badge-danger">{{ $data->status }}</span>
                                             @endif

@@ -53,7 +53,7 @@ class PostController extends Controller
         }
         $post->save();
         $post->categories()->attach($request->categories);
-        return redirect()->route('post.create');
+        return redirect()->route('post.index');
     }
 
     /**
@@ -79,7 +79,30 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //return $request;
+        $request->validate([
+            'title'=>'required',
+            'categories'=>'required',
+            'description'=>'required',
+            'status'=>'required'
+        ]);
+        //return $request;
+        $post= Post::find($id);
+        $post->title=$request->title;
+        $post->description=$request->description;
+        $post->meta_title=$request->meta_title;
+        $post->meta_description=$request->meta_description;
+        $post->status=$request->status;
+        if($request->hasFile('image'))
+        {
+            $file=$request->image;
+            $newName=time().'.'.$file->getClientOriginalExtension();
+            $file->move('images',$newName);
+            $post->image="images/$newName";
+        }
+        $post->update();
+        $post->categories()->sync($request->categories);
+        return redirect()->route('post.index');
     }
 
     /**
@@ -88,6 +111,7 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         $post=Post::find($id);
+       // return $post;
         $post->delete();
         return redirect()->route('post.index');
     }

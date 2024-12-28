@@ -40,21 +40,18 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8 mb-3">
-                            <label for="description">Meta Descriptions </label>
-                            <textarea name="meta_description" class="form-control">
-                                {{ old('meta_description') ?? $post->meta_description }}
-                        </textarea>
-                        @error('meta_description')
-                        <span>{{ $message }}</span>
-                        @enderror
+                            <label for="meta_description">Meta Descriptions</label>
+                            <textarea name="meta_description" class="form-control">{{ old('meta_description') ?? $data->meta_description }}</textarea>
+                            @error('meta_description')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
+                        
                         <div class="col-md-12">
-                            <label for="description">Descriptions <span class="text-danger ">*</span></label>
-                            <textarea name="description" class="form-control summernote">
-                                {{ old('description') ?? $post->description }}
-                            </textarea>
+                            <label for="description">Descriptions <span class="text-danger">*</span></label>
+                            <textarea name="description" class="form-control summernote">{{ old('description') ?? $data->description }}</textarea>
                             @error('description')
-                            <span>{{ $message }}</span>
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
