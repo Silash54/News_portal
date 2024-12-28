@@ -30,7 +30,7 @@
                                         <td>{{ $data->phone }}</td>
                                         <td>{{ $data->tel }}</td>
                                         <td>{{ $data->youtube }}</td>
-                                        <td><img src="{{ asset($data->logo) }}" alt="$data->logo" ></td>
+                                        <td><img src="{{ asset($data->logo) }}" alt="{{ $data->logo }}" width="120" ></td>
                                         <td>
                                             <a href="{{ route('company.edit', $data->id) }}" class="btn btn-info">Edit</a>
                                             <form action="{{ route('company.destroy', $data->id) }}" method="POST" style="display: inline;">
