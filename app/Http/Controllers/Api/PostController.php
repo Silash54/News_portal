@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostResource;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -12,7 +14,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $post=Post::orderBy('id','asc')->where('status','approved')->get();
+        //return $post;
+        return PostResource::collection($post);
     }
 
     /**
@@ -28,7 +32,31 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title'=>'required',
+            'image'=>'required',
+            'categories'=>'required',
+            'description'=>'required'
+        ]);
+        //return $request;
+        $post=new Post();
+        $post->title=$request->title;
+        $post->description=$request->description;
+        $post->meta_title=$request->meta_title;
+        $post->meta_description=$request->meta_description;
+        if($request->hasFile('image'))
+        {
+            $file=$request->image;
+            $newName=time().'.'.$file->getClientOriginalExtension();
+            $file->move('images',$newName);
+            $post->image="images/$newName";
+        }
+        $post->save();
+        $post->categories()->attach($request->categories);
+        return response()->json([
+            'status'=>true,
+            'message'=>'Post create successfully'
+        ]);
     }
 
     /**
@@ -36,7 +64,9 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post=Post::find($id);
+        return $post;
+        return new PostResource($post);
     }
 
     /**
