@@ -14,9 +14,9 @@
                 <div class="col-5">
                     <div class="row">
                         <div class="col-8">
-                            @foreach ($latest_post as $post)
+                            {{--  @foreach ($latest_post as $post)
                                 <img src="{{ asset($post->image) }}" alt="{{ $post->image }}" srcset="">
-                            @endforeach
+                            @endforeach  --}}
                         </div>
                     </div>
                 </div>
