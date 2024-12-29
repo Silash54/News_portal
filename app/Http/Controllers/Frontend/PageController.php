@@ -23,6 +23,7 @@ class PageController extends Controller
     public function home()
     {
         $latest_post=Post::orderBy('id','desc')->first();
-        return view('frontend.home',compact('latest_post'));
+        $trending_post=Post::orderBy('views','desc')->take(6)->get();
+        return view('frontend.home',compact('latest_post','trending_post'));
     }
 }
