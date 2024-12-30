@@ -3,7 +3,9 @@
         <div class="card">
             <div class="card-header">
                 <h2>Company</h2>
+                @empty($company)
                 <a href="{{ route('company.create') }}" class="btn btn-primary m-auto">Add</a>
+                @endempty
             </div>
             <div class="card-body">
                 <div class="row">

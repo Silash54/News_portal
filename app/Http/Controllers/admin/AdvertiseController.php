@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Advertise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class AdvertiseController extends Controller
 {
@@ -52,6 +54,7 @@ class AdvertiseController extends Controller
             $advertise->banner="images/$newName";
         }
         $advertise->save();
+        toast('Advertise Save successfully','success');
         return redirect()->route('advertise.index');
     }
 
@@ -99,6 +102,7 @@ class AdvertiseController extends Controller
             $advertise->banner="images/$newName";
         }
         $advertise->update();
+        toast('Advertise update successfully','success');
         return redirect()->route('advertise.index');
     }
 
@@ -109,6 +113,7 @@ class AdvertiseController extends Controller
     {
         $advertise=Advertise::find($id);
         $advertise->delete();
+        Alert::success('success', 'Advertise delete successfully');
         return redirect()->route('advertise.index');
     }
 }

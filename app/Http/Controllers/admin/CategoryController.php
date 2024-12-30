@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -44,6 +45,7 @@ class CategoryController extends Controller
         $category->slug=Str::slug($request->english_title);
         $category->position=$totalCategory+1;
         $category->save();
+        toast('Category Save successfully','success');
         return redirect()->route('category.create');
     }
 
@@ -80,6 +82,7 @@ class CategoryController extends Controller
         $category->slug=Str::slug($request->english_title);
         $category->position=$totalCategory+1;
         $category->update();
+        toast('Category update successfully','success');
         return redirect()->route('category.index');
     }
 
@@ -91,6 +94,7 @@ class CategoryController extends Controller
         $category=Category::find($id);
         //return $category;
         $category->delete();
+        Alert::success('success', 'Category delete successfully');
         return redirect()->route('category.index');
     }
 }

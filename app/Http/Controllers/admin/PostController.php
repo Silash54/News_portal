@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PostController extends Controller
 {
@@ -52,6 +53,7 @@ class PostController extends Controller
             $post->image="images/$newName";
         }
         $post->save();
+        toast('Post Save successfully','success');
         $post->categories()->attach($request->categories);
         return redirect()->route('post.index');
     }
@@ -101,6 +103,7 @@ class PostController extends Controller
             $post->image="images/$newName";
         }
         $post->update();
+        toast('Post update successfully','success');
         $post->categories()->sync($request->categories);
         return redirect()->route('post.index');
     }
@@ -113,6 +116,7 @@ class PostController extends Controller
         $post=Post::find($id);
        // return $post;
         $post->delete();
+        Alert::success('success', 'Post delete successfully');
         return redirect()->route('post.index');
     }
 }
