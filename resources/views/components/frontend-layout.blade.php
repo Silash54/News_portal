@@ -17,6 +17,11 @@
                     <div class="card " >
                         <img src="{{ asset($company->logo) }}" class="img-fluid" alt="{{ $company->logo }}">
                     </div>
+                    <div class="col-md-8">
+                        <div class="me-auto">
+                            <p class="mb-0">&copy; <span id="year"></span> Silas Rai. All rights reserved.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

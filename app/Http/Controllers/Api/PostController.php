@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -32,12 +33,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validator=Validator::make($request->all(),[
             'title'=>'required',
             'image'=>'required',
             'categories'=>'required',
             'description'=>'required'
         ]);
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>false,
+                'message'=>$validator->errors()
+            ]);
+        }
         //return $request;
         $post=new Post();
         $post->title=$request->title;

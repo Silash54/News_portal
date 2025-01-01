@@ -9,7 +9,8 @@ use App\Models\Category;
 use App\Models\Company;
 use App\Models\Post;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 class ApiController extends Controller
 {
     public function Categories()
@@ -32,5 +33,31 @@ class ApiController extends Controller
     {
         $category=Category::where('slug',$slug)->first();
         return new CategoryResource($category);
+    }
+    public function create_Category(Request $request)
+    {
+        //return $request;
+        $validator=Validator::make($request->all(),[
+            'english_title'=>'required',
+            'nepali_title'=>'required'
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                'status'=>false,
+                'message'=>$validator->errors()
+            ]);
+        }
+        $totalCategory=Category::count();
+        $category=new Category();
+        $category->nepali_title=$request->nepali_title;
+        $category->english_title=$request->english_title;
+        $category->slug=Str::slug($request->english_title);
+        $category->position=$totalCategory+1;
+        $category->save();
+        return response()->json([
+            'status'=>true,
+            'message'=>'Category Create successfully',
+            'data'=>$category
+        ]);
     }
 }

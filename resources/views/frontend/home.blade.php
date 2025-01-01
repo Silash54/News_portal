@@ -10,6 +10,7 @@
                     <div>
                         {!! $latest_post->description !!}
                     </div>
+            
                 </div>
                 <div class="col-5">
                     <div class="row">
